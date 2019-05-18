@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+</body>
+<script type="text/babel">
+    let app = document.querySelector("#app")
+    // 无状态组件没有生命周期
+
+    class Comp extends React.Component {
+        constructor(){
+            super()
+            this.state={
+                isShow:true
+            }
+            console.log("contructor","创建后")
+        }
+        //挂载前的生命周期钩子函数(用来监听组件的某个运行状态的函数)
+        componentWillMount(){
+            console.log("will mount","准备挂载",document.querySelector(".div1"))
+        }
+        render(){
+            //只要当前组件的state状态被修改，且影响dom渲染则render函数就会被触发
+            console.log("render","开始挂载")
+            return <div className="div1">comp组件
+                <button onClick={()=>{
+                    this.setState({
+                        isShow:!this.state.isShow
+                    })
+                }}>isShow</button>
+                {this.state.isShow?<ChildrenComp/>:null}
+            </div>
+        }
+        //挂载后的生命周期钩子函数
+        componentDidMount(){
+            console.log("did mount","挂载后",document.querySelector(".div1"))
+        }
+        //卸载前的生命周期钩子函数
+        componentWillUnmount(){
+            console.log("will unmount","卸载前")
+        }
+    }
+    class ChildrenComp extends React.Component {
+        render(){
+            return <p>子组件</p>
+        }
+        componentWillUnmount(){
+            //只有当前组件不被渲染到页面时触发
+            console.log("will unmount","卸载前")
+        }
+
+    }
+
+    // let bol = true;
+    ReactDOM.render(<Comp/>,app)
+</script>
+</html>

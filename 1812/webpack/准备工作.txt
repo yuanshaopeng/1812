@@ -1,0 +1,13 @@
+全局安装webpack
+cnpm i webpack -g 
+
+全局安装webpack脚手架
+cnpm i webpack-cli -g
+
+全局安装webpack本地服务
+cnpm i webpack-dev-server -g
+
+进入项目目录
+在根目录下创建webpack.config.js脚本，进行打包相关配置
+在根目录下创建src文件夹，src文件夹为开发环境代码
+在src目录下创建main.js打包入口文件

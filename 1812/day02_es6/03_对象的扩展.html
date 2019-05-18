@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    {
+        let obj = {};
+        //[key]可将key作为变量去解析;  .key key之作为键名，不会当作变量解析
+        obj.name = "lee";
+        obj["age"] = 18
+        let a = "name";
+        // alert(obj[a]);
+
+        delete obj.age;
+
+        //
+        // Object.defineProperty();
+    }
+
+    {
+        // is() / assign()
+    }
+
+    {
+        //is  等同于全等符号===
+        //检测两值是否全等
+        let a = NaN;b = NaN;
+        console.log(a===b);
+        console.log(Object.is(a,b));
+        //全等时 0===-0 true   Object.is(0,-0) false；
+        //全等时 NaN===NaN false   Object.is(NaN,NaN) true;
+    }
+
+    {
+        //assign() 对象的浅拷贝
+        let obj1 = {name:'lee',age:18};
+        let obj2 = {};
+        Object.assign(obj2,obj1);
+        
+        obj2.name="zhang";
+        console.log(obj2);
+        console.log(obj1);
+    }
+    {
+        // 扩展对象属性
+        //Object.assign(targetObj,optionObj);
+        //作为扩展使用时，用optionObj补充targetObj，
+        //若两对象属性冲突，optionObj会覆盖targetObj的冲突属性
+        let city = {
+            name:"北京",
+            pos:"中国"
+        }
+        let opt = {
+            EnglistName:"beijing",
+            option:"中国首都",
+            pos:"亚洲"
+        }
+        Object.assign(city,opt);
+        console.log(city)
+        // $.extend
+    }
+
+    {
+        //对象简写
+        let name = "lee";
+        let obj = {
+            fn:function(){
+
+            },
+            fn(){
+
+            },
+            name,
+            age:18
+        }
+    }
+    
+    {
+        //在js中浮点数的计算一般将其转为整数计算后在转为对应的浮点数
+        // console.log(0.1+0.2===0.3);false;
+        //
+        console.log((0.1*10+0.2*10)/10)
+    }
+</script>
+</html>

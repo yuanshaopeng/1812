@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //js语言就是函数式编程思想设计
+    //第一类公民
+    //特点：
+        /**
+         * 1、可以作为变量且可用作数据结构储存
+         * 2、可以作为参数传递给方法/函数
+         * 3、可以作为返回值从函数/方法返回
+         */
+        let fn = callback=>a=>callback(a);
+        // function fn(callback){
+        //     return function(a){
+        //         return callback(a)
+        //     }
+        // }
+
+    //声明式；
+        /**
+         * 声明式的设计思想强调程序的运行结果而非运行过程
+         * 与命令式操作相比
+         *  1、声明式代码较于命令式而言更为精简
+         *  2、声明式代码见名知意，而命令式需要以大量注释加以辅助
+         *  3、声明式强调结果，命令式强调过程
+         */
+    // let a = 10;
+    // arr.slice(0)
+
+    let str = "hello world nice to meet you";
+    //命令式+声明式
+    let arr = str.split(" ");
+    let result = arr.join("-");
+
+    //纯命令式
+    let newStr = "";//用于拼接后的新字符串的储存
+    for(let i = 0 ; i < str.length ; i++){//
+        if(str.charAt(i)==" "){//
+            newStr+="-"//
+        }else{
+            newStr+=str.charAt(i)//
+        }
+    }
+    // newStr;
+    //声明式
+    let newS = str.replace(/ /g,"-"); 
+    //react采用的就是声明式设计思想
+
+    // 不可变性
+    // 在函数式编程时，是不允许对原始数据进行修改的
+    // let arr = [1,2,3,4];
+    // arr.slice(0);
+    // arr.splice(0,4);
+
+    //纯函数
+    /**
+     * 1、纯函数至少具备一个参数
+     * 2、纯函数不会产生任何副作用（不影响函数外的任何数据的改变，不影响函数外程序运行）
+     * 3、纯函数必须返回数据或函数
+     */
+    {
+        let arr = [1,2,3,4];
+
+        function myPush(arr) { 
+            arr = arr.slice(0);
+            arr.push(arr.length+1);
+            return arr;
+        }
+        console.log(myPush(arr));
+        console.log(arr);
+    }
+
+</script>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function myIterator(arr){
+        let index = -1;
+        return {
+            next(){
+                index++;
+                if(index==arr.length-1){
+                    return {
+                        done:true,
+                        value:arr[index]
+                    }
+                }else if (index>=arr.length){
+                    return {
+                        done:true,
+                        value:undefined
+                    }
+                }
+                else{
+                    return {
+                        done:false,
+                        value:arr[index]
+                    }
+                }
+            }
+        }
+    }
+    let iter = myIterator([1,2,3,4]);
+    console.log(iter);
+    console.log(iter.next());
+    console.log(iter.next());
+    console.log(iter.next());
+    console.log(iter.next());
+    console.log(iter.next());
+
+</script>
+</html>

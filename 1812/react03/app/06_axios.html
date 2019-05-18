@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <script src="./lib/axios.js"></script>
+</head>
+<body>
+    <!-- axios 不属于任何框架，属于独立插件，用于前后端数据交互 -->
+    <div id="app"></div>
+</body>
+<script type="text/babel">
+//get请求
+    axios({
+        method:"get",
+        url:"http://localhost:8080/cs",
+        params:{
+            user:"lee",
+            pass:"123"
+        }
+    })
+    .then(res=>{
+        console.log(res);
+    })
+    .catch(err=>{
+        console.log(err);
+    })
+
+//post
+    //在跨域访问时   post提交的数据需要通过URLSearchParams对象进行数据格式转换
+    let params = new URLSearchParams();//
+    // params.append(key,val)
+    params.append("user","leepost");
+    params.append("pass","123");
+    axios({
+        method:"post",
+        url:"http://localhost:8080/cs",
+        data:params,
+        headers:{
+            "content-type":"application/x-www-form-urlencoded"
+        }
+    })
+    .then(res=>{
+        console.log(res);
+    })
+
+</script>
+</html>

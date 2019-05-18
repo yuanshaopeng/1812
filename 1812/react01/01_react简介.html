@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- react主库文件 -->
+    <script src="./lib/react.development.js"></script>
+    <!-- react-dom渲染脚本 -->
+    <script src="./lib/react-dom.development.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+</body>
+<script>
+    //创建reactDOM元素
+    // React.createElement(tagName,attr,children/content)
+    //注意：设置标签的class属性时，使用className设置其类名；
+    let h1 = React.createElement("h1",{id:"mainTitle",className:"xxx"},"这就是reactDOM元素");
+    // console.log(h1);
+    //渲染reactDOM元素
+    // ReactDOM.render(react元素,插入位置)
+    ReactDOM.render(h1,document.querySelector("#app"));
+
+
+
+
+
+
+    // let h2 = document.createElement("h2");
+    // console.log(h2);
+</script>
+</html>

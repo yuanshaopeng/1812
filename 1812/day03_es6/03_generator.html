@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    {
+        //语法特点：
+        function* fn(){
+            console.log(1)
+            yield "hello";//产出
+            console.log(2)
+            yield "world";
+            console.log(3)
+            return "!!!"
+        }
+        // console.log(fn())
+        let gen = fn();//iterator返回遍历器接口对象
+        // console.log(gen.next())
+        // console.log(gen.next())
+        // console.log(gen.next())
+        // console.log(gen.next())
+        /**
+         * generator函数运行规则
+         * 1、暂缓执行函数，在调用generator函数时，函数的代码块并不会立即执行
+         * 需要手动调用next方法后方可开始允许
+         * 每次调用next只允许执行一个yield表达式  yield表达式后的值会作为本次的输出结果
+         * 2、generator返回值为iterator遍历器接口对象，所以generator函数返回值可以遍历
+         */
+        for(let k of gen){
+            console.log(k)
+        }
+    }
+
+    {
+        // // 应用一：暂缓执行
+        // function* fn(a,b){
+        //     alert(a+b);
+        // }
+        // let gen = fn(10,20);
+
+        // setTimeout(()=>{
+        //     gen.next()
+        // },1000)
+    }
+
+    {
+        // generator.prototype.next()
+        /**
+         * next方法在传参数时
+         * 参数为上一次yield表达式的返回结果
+         * 一般情况下  next方法传递的参数为上一次yield的产出结果
+         */
+        function* fn(){
+            let step1 = yield "你好";
+            console.log(step1);
+            let step2 = yield "世界";
+            console.log(step2);
+        }
+        let gen = fn();
+        console.log(gen.next()) 
+        console.log(gen.next("sad"));
+    }
+
+    {
+        // 应用二：做继发请求容器
+        function* fn(){
+            let step1 = yield new Promise((resolve,reject)=>{
+                let xhr = new XMLHttpRequest();
+                xhr.open("get","http://localhost:8080/address",true);
+                xhr.send();
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState == 4){
+                        if(xhr.status == 200){
+                            resolve(xhr.responseText);
+                        }
+                    }
+                }
+            })
+
+            yield new Promise((resolve,reject)=>{
+                let xhr = new XMLHttpRequest();
+                xhr.open("get","http://localhost:8080/shop?lat="+step1.lat+"&lng="+step1.lng,true);
+                xhr.send();
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState == 4){
+                        if(xhr.status == 200){
+                            resolve(xhr.responseText);
+                        }
+                    }
+                }
+            })
+        }
+        let gen = fn();
+        console.log(gen.next().value.then(res=>{
+            res = JSON.parse(res)
+            gen.next(res.data).value.then(res=>{
+                console.log(JSON.parse(res))
+            })
+        }))
+    }
+
+    {
+        //yiled* 
+        //可以将generator函数合并
+        function* gen1(){
+            yield "1";
+            yield "2";
+        }
+        function* gen2(){
+            yield "3";
+            yield* gen1()
+            yield "4";
+        }
+        let g = gen2();
+        console.log(g.next())
+        console.log(g.next())
+        console.log(g.next())
+        console.log(g.next())
+    }
+
+    {
+        // generator易错点
+        function* gen1(){
+            let arr = [1,2,3,4];
+            // 错误示范
+            // arr.forEach((item,index)=>{
+            //     yield item; //yield只允许直接写在generator函数里
+            // })
+            // for循环
+        }
+    }
+
+    {
+        //generator可以被解构
+        function* gen1(){
+            yield "1";
+            yield "2";
+        }
+        let g = gen1();
+        // 通过数组的形式被解构
+        let [...c] = g;
+        console.log(c);
+    }
+
+    {
+        //并发请求
+        function* fn(){
+            yield new Promise((resolve,reject)=>{
+                let xhr = new XMLHttpRequest();
+                xhr.open("get","http://localhost:8080/step1",true);
+                xhr.send();
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState == 4){
+                        if(xhr.status == 200){
+                            resolve(xhr.responseText);
+                        }
+                    }
+                }
+            })
+            yield new Promise((resolve,reject)=>{
+                let xhr = new XMLHttpRequest();
+                xhr.open("get","http://localhost:8080/step2",true);
+                xhr.send();
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState == 4){
+                        if(xhr.status == 200){
+                            resolve(xhr.responseText);
+                        }
+                    }
+                }
+            })
+            yield new Promise((resolve,reject)=>{
+                let xhr = new XMLHttpRequest();
+                xhr.open("get","http://localhost:8080/step3",true);
+                xhr.send();
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState == 4){
+                        if(xhr.status == 200){
+                            resolve(xhr.responseText);
+                        }
+                    }
+                }
+            })
+            yield new Promise((resolve,reject)=>{
+                let xhr = new XMLHttpRequest();
+                xhr.open("get","http://localhost:8080/step4",true);
+                xhr.send();
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState == 4){
+                        if(xhr.status == 200){
+                            resolve(xhr.responseText);
+                        }
+                    }
+                }
+            })
+        }
+        let g = fn();
+        let [...c] = g;
+        console.log(c);
+        Promise.all(c)
+        .then(res=>{
+            console.log(res);
+        })
+    }
+</script>
+</html>

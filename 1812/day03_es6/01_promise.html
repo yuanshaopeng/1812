@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <img src="" alt="">
+</body>
+<script>
+    {
+        //promise对象语法
+        let p1 = new Promise((resolve,reject)=>{
+            console.log(1);
+            /**
+            * resolve函数：将promise对象由进行中状态凝固为成功状态
+            * reject 函数：将promise对象由进行中状态凝固为失败状态
+            * new Promise(backFn) backFn是立即执行函数 实例化promise时回调函数就会被调用
+            */
+            // reject("err")
+        });
+        // console.log(p1);
+        console.log(2);
+    }
+
+    {
+        //作用1: 异步加载图片
+        
+
+        //使得异步操作的结构更加清晰
+        let p1 = new Promise((resolve,reject)=>{
+            let url = "lo.png";
+            let img = document.querySelector("img");
+            img.src = url;
+            img.onload = function () {
+                resolve(img);
+            }
+            img.onerror = function(){
+                // console.log("加载失败")
+                reject("加载失败")
+            }
+            
+        })
+        console.log(p1);
+        console.log(Promise.prototype)
+        p1.then(res=>{
+            console.log(res.offsetWidth)
+        })
+    }
+
+    {
+        // Promise.prototype.then(backFn)
+        //用来监听promise对象凝固为成功状态
+    }
+
+    {
+        // Promise.prototype.catch(backFn)
+        //用来监听promise对象凝固为失败状态
+    }
+
+    {
+        // Promise.prototype.finally(backFn)
+        //用来监听promise对象状态的改变（无论成功还是失败，只要状态改变就会触发）
+    }
+    
+    {
+        let p1 = new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                reject("err")
+            },1000)
+        })
+        p1.then(res=>{
+            console.log(res)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+        .finally(()=>{
+            console.log("run")
+        })
+    }
+
+    {
+        let xhr = new XMLHttpRequest();
+        xhr.open("get","xxxx",true);
+        xhr.send("xxx=xxx");
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState ==4 && xhr.status ==200){
+                //位置 
+                let xhr = new XMLHttpRequest();
+                xhr.open("get","xxxx",true);
+                xhr.send("xxx=xxx");
+                xhr.onreadystatechange = function () {
+                    if(xhr.readyState ==4 && xhr.status ==200){
+                        //店铺
+                        
+                    }
+                }
+            }
+        }
+
+        function asycnFn(url,method,data){
+            return new Promise((resolve,reject)=>{
+                let xhr = new XMLHttpRequest();
+                xhr.open(method,url,true);
+                xhr.send(data);
+                xhr.onreadystatechange = function () {
+                    if(xhr.readyState ==4 && xhr.status ==200){
+                        //店铺
+                        resolve(xhr.responseText)
+                    }else{
+                        reject(xhr.status)
+                    }
+                }
+            })
+        }
+        // asycnFn("地址","get","数据")
+        // then(res=>{
+        //     // res位置
+        //     asycnFn().then((res=>{
+        //         xxx
+        //     }))
+        // })
+    }
+
+    {
+
+        // Promise.all([promise,promise])
+        // 处理并发请求
+        // 请求的耗时为最长的一次请求时长
+        // 返回promise对象，then方法回调函数参数为数组，
+        // 参数数组顺序与all方法传递的请求数组顺序一一对应
+
+    }
+    {
+        // Promise.race()
+        // 处理竟发请求
+        // Promise.race([req,req,req])
+        // 请求的耗时为最短的一次请求时长
+        // 返回promise 对象,then方法回调函数参数为请求数组中最先请求成功的请求结果
+    }
+    {
+        // Promise.resolve()
+        // 将其他值强制转换为成功状态的promise对象
+    }
+    {
+        // Promise.reject()
+        // 将其他值强制转换为失败状态的promise对象
+    }
+    // console.log(Promise.resolve("1"))
+</script>
+</html>

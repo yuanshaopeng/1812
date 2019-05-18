@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+</body>
+<script type="text/babel">
+    let app = document.querySelector("#app")
+    class Comp extends React.Component {
+        constructor(){
+            super();
+            this.state = {
+                list:[{
+                    userName:"",
+                    tel:"",
+                }]
+            }
+        }
+        handleIpt(index,ev){
+            console.log(index)
+            const el = ev.target;
+            this.state.list[index][el.name] = el.value;
+            this.setState({
+                list:this.state.list
+            })
+        }
+        handleDel(index,ev){
+            this.state.list.splice(index,1);
+            this.setState({
+                list:this.state.list
+            })
+        }
+        render(){
+            return <div>
+                <ul>
+                    {this.state.list.map((item,index)=>{
+                        return <li key={index}>
+                            <input type="text" name="userName" value={this.state.list[index].userName} placeholder="请输入用户名" onInput={this.handleIpt.bind(this,index)} />
+                            <input type="text" name="tel" value={this.state.list[index].tel} placeholder="请输入手机号" onInput={this.handleIpt.bind(this,index)} />
+                            <button onClick={this.handleDel.bind(this,index)}>删除</button>
+                        </li>
+                    })}
+                </ul>
+                <button onClick={()=>{
+                    this.state.list.push({
+                        userName:"",
+                        tel:""
+                    })
+                    this.setState({
+                        list:this.state.list
+                    })
+                }}>添加联系人</button>
+                <button onClick={()=>{
+                    console.log(this.state.list);
+                }}>提交</button>
+            </div>
+        }
+    }
+    ReactDOM.render(<Comp/>,app)
+</script>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- react主库文件 -->
+    <script src="./lib/react.development.js"></script>
+    <!-- react-dom渲染脚本 -->
+    <script src="./lib/react-dom.development.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+</body>
+<script>
+    //创建reactDOM元素
+    // React.createElement(tagName,attr,children/content)
+    //注意：
+    //   设置标签的class属性时，使用className设置其类名；
+    //   设置reactDOM元素的子元素时，不能用标签字符串去设置；
+    // let h1 = React.createElement("h1",{id:"mainTitle",className:"xxx"},
+    //     React.createElement("span",null,"我是第一个h1中的子元素span"),
+    //     React.createElement("span",null,"我是第二个h1中的子元素span")
+    // );
+    // console.log(h1);
+    //渲染reactDOM元素
+    // ReactDOM.render(react元素,插入位置)
+    // ReactDOM.render(h1,document.querySelector("#app"));
+    // 初版本
+    const {createElement:c} = React;
+    let ul = c("ul",null,
+        c("li",null,
+            c("h2",null,"一级菜单"),
+            c("ul",null,
+                c("li",null,
+                    c("h3",null,"二级菜单")
+                ),
+                c("li",null,
+                    c("h3",null,"二级菜单")
+                )
+            )
+        )
+    )
+    ReactDOM.render(ul,document.querySelector("#app"))
+
+</script>
+</html>

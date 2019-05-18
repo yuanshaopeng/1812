@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div></div>
+</body>
+<script>
+    //map数据结构  =》哈希结构的对象
+    let div = document.querySelector("div");
+    // let obj = {};
+    // obj[div] = "div";
+    // console.log(obj);
+
+    {
+        let m1 = new Map();
+        let fn = function(){};
+        //添加数据
+        m1.set(fn,div);
+        console.log(m1);
+        //获取数据
+        console.log(m1.get(fn));
+        //has用于检测是否具备某个键名
+        console.log(m1.has(fn))
+        //删除
+        m1.delete(fn)
+        //若删除失败则返回false
+        console.log(m1);
+        //clear清空数据结构
+        m1.clear();
+    }
+
+    {
+        // for...of
+        let m1 = new Map()
+        m1.set({name:"lee"},[1,2,3,4])
+        m1.set(function(){},"函数")
+        //
+        console.log("------------for of m1-------------")
+        for(let k of m1){
+            console.log(k);//[键名,键值]
+        }
+        //
+        console.log("------------for of keys-------------")
+        for(let k of m1.keys()){
+            console.log(k);//[键名,键值]
+        }
+        console.log("------------for of values-------------")
+        for(let k of m1.values()){
+            console.log(k);//[键名,键值]
+        }
+        console.log("------------for of entries-------------")
+        for(let k of m1.entries()){
+            console.log(k);//[键名,键值]
+        }
+        // forEach
+        m1.forEach((item,key)=>{
+            console.log(item,key)
+        })
+    }
+</script>
+</html>

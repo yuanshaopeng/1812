@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+<script type="text/babel">
+    //有状态组件
+    // state:用来保存组件的私有状态（组件中可变的参数）
+    class Comp extends React.Component {
+        constructor(props){
+            super();
+            //手动注册state状态
+            this.state = {
+                num:1
+            }
+            // this=>Comp实例
+        }
+        render(){
+            console.log(this);
+            // 访问props时  通过this指针访问  this.props.xxx
+            // 在有状态组件中props仍然是只读属性
+            // this=>Comp实例
+            // 返回jsxdom模板
+            return <h1>我是有状态的 num为{this.state.num}</h1>
+        }
+    }
+    ReactDOM.render(<Comp title="xx"/>,document.querySelector("#app"));
+
+</script>
+</html>

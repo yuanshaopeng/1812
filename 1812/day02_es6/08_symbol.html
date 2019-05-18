@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 不会出现相同的symbol
+    // let s1 = Symbol("a");
+    // let s2 = Symbol("a");
+    // console.log(s1,s2)
+    // console.log(typeof s1);
+
+    {
+        let s1 = Symbol();
+        let obj = {};
+        obj[s1] = "symbol"
+        Object.defineProperty(obj,s1,{
+            enumerable:false
+        })
+        console.log(obj);
+        for(let k in obj){
+            console.log(obj[k])
+        }
+    }
+
+</script>
+</html>

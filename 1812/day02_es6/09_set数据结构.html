@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //set数据结构为数据集合，在数据集合中不会出现重复项
+    {
+        let s1 = new Set([1,2,3,4,4,3,2,1]);
+        //添加
+        s1.add(5)   
+        //删除
+        s1.delete(1);
+        //是否存在
+        console.log(s1.has(1))
+        //clear()清空
+        s1.clear();
+        console.log(s1);
+    }
+    {
+        // 数组去重
+        let arr = [1,2,3,4,3,2,1,2,3,4,5,3];
+        console.log([...new Set(arr)]);
+    }
+
+    {
+        let arr = ["a","b","c","d"];
+        let s1 = new Set(arr);
+        //for...of
+        for(let k of s1){
+            console.log(k);
+        }
+        console.log("------------for of s1-------------")
+        s1.forEach((item)=>{
+            console.log(item);
+        })
+        console.log("------------forEach-------------")
+        for(let k of s1.values()){
+            console.log(k)
+        }
+        console.log("------------for of values-------------")
+        for(let k of s1.entries()){
+            console.log(k)
+        }
+        console.log("------------for of entries-------------")
+        for(let k of s1.keys()){
+            console.log(k);
+        }
+        console.log("------------for of keys-------------")
+        console.log(typeof s1);
+    }
+
+</script>
+</html>

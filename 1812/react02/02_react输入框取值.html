@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+</body>
+<script type="text/babel">
+    let app = document.querySelector("#app")
+
+    class Ipt extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                a:1,
+                num:2,
+                count:3,
+                formData:{}
+            }
+        }
+        handleInput(ev){
+            let el = ev.target;
+            this.setState({
+                formData:Object.assign(this.state.formData,{[el.name]:el.value})
+            })
+        }
+        render(){
+            return <div>
+            <input type="text" name="name" onInput={this.handleInput.bind(this)} />
+            <input type="text" name="age" onInput={this.handleInput.bind(this)}/>
+            <input type="text" name="address" onInput={this.handleInput.bind(this)} />
+            <input type="text" name="tel" onInput={this.handleInput.bind(this)}/>
+            <input type="text" name="sex" onInput={this.handleInput.bind(this)}/>
+            <input type="text" name="work" onInput={this.handleInput.bind(this)}/>
+            <button onClick={()=>{
+                console.log(this.state)
+            }}>提交</button>
+            </div>
+        }
+    }
+    ReactDOM.render(<Ipt/>,app)
+</script>
+</html>

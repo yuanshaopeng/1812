@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+</body>
+<script type="text/babel">
+    let app = document.querySelector("#app");
+    class Lyb extends React.Component {
+        constructor(){
+            super();
+            this.state={
+                isShow:false,
+                title:"",
+                content:"",
+                list:[],
+                chooseArr:[]
+            }
+        }
+        handleInput(ev){
+            this.setState({
+                [ev.target.name]:ev.target.value
+            })
+        }
+        handleChange(ev){
+            let el = ev.target;
+            let val = el.value;
+            let index = this.state.chooseArr.indexOf(val);
+            index==-1?this.state.chooseArr.push(val):this.state.chooseArr.splice(index,1);
+            this.setState({
+                chooseArr:this.state.chooseArr
+            },()=>{
+                console.log(this.state.chooseArr)
+            })
+        }
+        render(){
+            return <div>
+                <input type="text" name="title" value={this.state.title} onInput={this.handleInput.bind(this)} />
+                <br/>
+                <textarea type="text" name="content" value={this.state.content} onInput={this.handleInput.bind(this)} ></textarea>
+                <button onClick={()=>{
+                    this.state.list.push({
+                        title:this.state.title,
+                        content:this.state.content
+                    })
+                    this.setState({
+                        list:this.state.list
+                    },()=>{
+                        this.setState({
+                            title:"",
+                            content:''
+                        })
+                    })
+                }}>提交</button>
+                <button onClick={()=>{
+                    this.setState({
+                        isShow:true
+                    })
+                }}>
+                    批量删除按钮
+                </button>
+                {this.state.isShow? <div><button onClick={()=>{
+                    this.setState({
+                        list:this.state.list.filter((item,index)=>{
+                        return !this.state.chooseArr.includes(index.toString())
+                    }),
+                        isShow:false,
+                        chooseArr:[],
+                    })
+                }} >
+                    删除选中项
+                </button>
+                <button onClick={()=>{
+                    this.setState({
+                        isShow:false,
+                        chooseArr:[]
+                    })
+                }}>
+                    取消
+                </button></div>:null}
+                <ul>
+                    {this.state.list.map((item,index)=>{
+                        return  <li key={index}>
+                            {this.state.isShow?<input type="checkbox" value={index} checked={this.state.chooseArr.includes(index.toString())} onChange={this.handleChange.bind(this)} />:null}
+                            <h2>{item.title}</h2>
+                            <p>{item.content}</p>
+                            <a href="#" onClick={()=>{
+                                this.state.list.splice(index,1);
+                                this.setState({
+                                    list:this.state.list
+                                })
+                            }}>删除</a>
+                        </li>
+                    })}
+                </ul>
+                {this.state.isShow? <div><button onClick={()=>{
+                    for(let i = 0 ; i < this.state.list.length ;i++){
+                        this.state.chooseArr[i] = i.toString();
+                    }
+                    this.setState({
+                        chooseArr:this.state.chooseArr
+                    })
+                }} >
+                    全选
+                </button>
+                <button onClick={()=>{
+                    let arr = [];
+                    for(let i = 0 ; i < this.state.list.length ;i++){
+                        arr[i] = i.toString();
+                    }
+
+                    this.setState({
+                        chooseArr:arr.filter((item,index)=>{
+                            return !this.state.chooseArr.includes(item);
+                        })
+                    })
+                }} >
+                    反选
+                </button>
+                <button onClick={()=>{
+                    this.setState({
+                        chooseArr:[]
+                    })
+                }} >
+                    全不选
+                </button>
+                </div>:null}
+            </div>
+        }
+    }
+
+    ReactDOM.render(<Lyb/>,app)
+
+</script>
+</html>

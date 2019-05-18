@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+</body>
+<script type="text/babel">
+    let arr = [{
+        url:"./01.jpg",
+        title:"树苗",
+        option:"杨树苗",
+        price:"1000"
+    },{
+        url:"./02.jpg",
+        title:"躺椅",
+        option:"长躺椅",
+        price:"200"
+    },{
+        url:"./03.png",
+        title:"袁老师英语课堂",
+        option:"教你英语",
+        price:"50"
+    },{
+        url:"./04.jpg",
+        title:"张学广照片",
+        option:"写真照",
+        price:"-100"
+    }]
+
+    const GoodsItem = (props)=>{
+        /**
+         *  props.url  图片路径
+         *  props.title  商品名称
+         *  props.option 商品详情
+         *  props.price 商品价格 
+         */
+        return (<div>
+            <img src={props.url} />
+            <h2>{props.title}</h2>
+            <h3>{props.option}</h3>
+            <h3>¥{props.price}</h3>
+        </div>)
+    }
+    ReactDOM.render(<div>
+        {
+            arr.map((item,index)=>{
+                return <GoodsItem key={index} url={item.url} title={item.title} option={item.option} price={item.price} />
+            })
+        }
+    </div>,document.querySelector("#app"))
+
+
+</script>
+</html>

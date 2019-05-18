@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <!-- jsx转码脚本 -->
+    <script src="./lib/babel.min.js"></script>
+</head>
+<body>
+    <!-- 
+        jsx：
+            JavaScript XML
+            jsx属于JavaScript的一种语法糖
+            （在某语言的语法基础上的二次封装，使用时比原语法更加简单方便，
+            但是无法直接被识别读取，所以需要一定的垫片处理）；
+            在script脚本中正常书写标签结构，这就是jsx
+            jsx中仅可出现一个根元素
+            推荐使用jsx来完成页面渲染，渲染速度优于createElement方式
+     -->
+    
+    <div id="app"></div>
+
+</body>
+<!-- 若在脚本中使用jsx  需将script的type 属性修改为“text/babel” -->
+<!-- 外部导入使，type也需要进行设置  服务器环境下 -->
+<script type="text/babel" src="./lib/my_jsx.js" ></script>
+<script type="text/babel" >
+
+    // ReactDOM.render(<h1>jsx就是这个样的</h1>,document.querySelector("#app"));
+    // const dom = (<ul>
+    //     <li>
+    //         <h2>一级菜单</h2>
+    //         <ul>
+    //             <li>
+    //                 <h3>二级菜单</h3>
+    //                 <ul>
+    //                     <li><h4>三级菜单</h4></li>
+    //                     <li><h4>三级菜单</h4></li>
+    //                     <li><h4>三级菜单</h4></li>
+    //                 </ul>
+    //             </li>
+    //             <li>
+    //                 <h3>二级菜单</h3>
+    //                 <ul>
+    //                     <li>
+    //                         <h4>三级菜单</h4>
+    //                         <ul>
+    //                             <li><h5>四级菜单</h5></li>
+    //                             <li><h5>四级菜单</h5></li>
+    //                         </ul>
+    //                     </li>
+    //                 </ul>
+    //             </li>
+    //         </ul>
+
+    //     </li>
+    // </ul>)
+    ReactDOM.render(dom2,document.querySelector("#app"))
+
+
+</script>
+</html>

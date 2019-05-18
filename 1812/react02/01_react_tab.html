@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <title>Document</title>
+    <style>
+        .active{
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+            
+    </div>
+</body>
+<script type="text/babel">
+    let app = document.querySelector("#app")
+    class Tab extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                currentIndex:props.currentIndex||0,//保存点击项状态
+                data:[{
+                    title:"娱乐",
+                    list:["蔡徐坤打篮球上热搜","吴亦凡大碗面","蔡徐坤演唱会假唱20分钟"]
+                },{
+                    title:"体育",
+                    list:["利物浦4:0赢巴萨夺冠","煤球王的失落","中国乒乓谁都打不过","中国足球谁都打不过"]
+                },{
+                    title:"新闻",
+                    list:["习大大邀请各国领导人游览园博园","川普又要搞贸易战"]
+                }]
+            }
+        }
+        render(){
+            return (
+                <div>
+                    <div className="btnGroup">
+                        {this.state.data.map((item,index)=>{
+                            return <button onClick={()=>{
+                                this.setState({
+                                    currentIndex:index
+                                })
+                            }} className={this.state.currentIndex==index?'active':''} key={index}>{item.title}</button>
+                        })}
+                    </div>
+                    <div className="boxWrap">
+                        {this.state.data.map((item,index)=>{
+                            return <div key={index} style={{display:this.state.currentIndex==index?"block":"none"}}>
+                                {item.list.map((val,key)=>{
+                                    return <p><a href="#">{val}</a></p>
+                                })}
+                            </div>
+                        })}
+                    </div>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(<Tab currentIndex="2"/>,app)
+</script>
+</html>

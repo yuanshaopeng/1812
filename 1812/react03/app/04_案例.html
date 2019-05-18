@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .innerBox{
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+<script type="text/babel">
+    //高阶组件实际上就是一个高阶函数
+    //传入一个组件作为参数，返回一个新的组件的函数就是高阶组件
+
+    class InnerComp extends React.Component {
+        constructor(props){
+            super()
+            console.log(props)
+        }
+        handleA(){
+            console.log(2);
+        }
+        render(){
+            return <div ref="indexBox" className="innerBox">
+                 
+            </div>
+        }
+    }
+
+    let compHoc = Comp =>class extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                ...props
+            }
+        }
+        handleMove(ev){
+            console.log(ev.clientX,ev.clientY);
+        }
+        render(){
+            
+            return <div>
+                <Comp ref="comp" />
+            </div>
+        }
+        componentDidMount(){
+            //refs只能在挂载后读取
+            console.log(this);
+            this.refs.comp.refs.indexBox.onmousemove = this.handleMove
+        }
+    }
+    
+    let CompHoc = compHoc(InnerComp);//高阶组件
+    ReactDOM.render(<CompHoc/>,document.querySelector("#app"))
+</script>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+</body>
+<script type="text/babel">
+    let app = document.querySelector("#app")
+    class Timer extends React.Component {
+        constructor(){
+            super();
+            this.state = {
+                time:new Date().getTime()
+            }
+        }
+        timePicker(){
+            let time = new Date(this.state.time);
+            return time.getHours()+":"+time.getMinutes()+":"+time.getSeconds();
+        }
+        componentDidMount(){
+            setInterval(()=>{
+                this.setState({
+                    time:new Date().getTime()
+                })
+            },1000)
+            
+        }
+        render(){
+            return <p>现在时间：{this.timePicker.call(this)}</p>
+        }
+    }
+    ReactDOM.render(<Timer/>,app)
+
+    
+</script>
+</html>

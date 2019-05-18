@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    {
+        let arr = [];
+        for(var i = 0 ; i < 5 ; i++){
+            arr.push((function(i){
+                // var i ;
+                return function () { 
+                    console.log(i)
+                 }
+            })(i))
+        }
+        /**
+        *   1、let在for循环中会建立两个块级作用域 计数体为一个作用域，循环体为另一个作用域 如下所示
+        *   2、let在for循环中不再使用变量计数进行累加，而是在内存中保存上一次的循环计数值，在下一次循环时
+        *   从内存中取出上一次的结果进行累加
+        */
+        for(let i = 0 ; i < 5 ; i++){
+            arr.push(function () { 
+                console.log(i)
+            })
+        }
+        arr[1]()
+        {
+            let i = 0;
+            {
+                let i = "aaa";
+                arr.push(function(){
+                    console.log(i)
+                })
+            }
+        }
+        {
+            let i = 1;
+            {
+                let i = "aaa";
+                arr.push(function(){
+                    console.log(i)
+                })
+            }
+        }
+        
+    }
+</script>
+</html>

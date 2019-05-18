@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+<script type="text/babel">
+    //高阶组件实际上就是一个高阶函数
+    //传入一个组件作为参数，返回一个新的组件的函数就是高阶组件
+
+    class InnerComp extends React.Component {
+        render(){
+            return <div>
+                <p>参数组件</p>    
+            </div>
+        }
+    }
+
+    let compHoc = Comp =>class extends React.Component {
+        render(){
+            return <div>
+                <h2>我是高阶组件</h2> 
+                {Comp}
+            </div>
+        }
+    }
+    // let compHoc = function(Comp){
+    //     return class extends React.Component {
+            
+    //     }
+    // }
+    let CompHoc = compHoc(<InnerComp/>);//高阶组件
+    ReactDOM.render(<CompHoc/>,document.querySelector("#app"))
+</script>
+</html>

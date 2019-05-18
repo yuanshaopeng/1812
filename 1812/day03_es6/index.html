@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script src="./promiseajax.js"></script>
+<script>
+    ajax({
+        method:"get",
+        url:"http://localhost:8080/step1",
+        params:{
+            name:"lee",
+            age:18
+        }
+    }).then(res=>{console.log(res)}).catch(err=>{})
+
+    ajax.jsonp("https://api.asilu.com/weather/",{city:"北京"})
+    .then(res=>{
+        console.log(res);
+    })
+    // {
+    //     function asyncFn(obj){
+    //         return new Promise((resolve,reject)=>{
+    //             let xhr = new XMLHttpRequest();
+    //             if(obj.data){
+    //                 xhr.open("get",obj.url+"?lat="+obj.data.lat+"&lng="+obj.data.lng,true);
+    //             }else{
+    //                 xhr.open("get",obj.url,true)
+    //             }
+    //             xhr.send();
+    //             xhr.onreadystatechange = function(){
+    //                 if(xhr.readyState == 4 ){
+    //                     if(xhr.status ==200){
+    //                         resolve(xhr.responseText)
+    //                     }else{
+    //                         reject(xhr.status)
+    //                     }
+    //                 }  
+                    
+    //             }
+                
+    //         })
+    //     }
+
+    //     function asyncFn2(data){
+    //         data = JSON.parse(data);
+    //         console.log(data);
+    //         data = data.data;
+    //         return new Promise((resolve,reject)=>{
+    //             let xhr = new XMLHttpRequest();
+    //             xhr.open("get","/shop"+"?lat="+data.lat+"&lng="+data.lng,true);
+    //             xhr.send();
+    //             xhr.onreadystatechange = function(){
+    //                 if(xhr.readyState == 4 ){
+    //                     if(xhr.status ==200){
+    //                         resolve(xhr.responseText)
+    //                     }else{
+    //                         reject(xhr.status)
+    //                     }
+    //                 }  
+                    
+    //             }   
+    //         })
+    //     }
+    //     //解决回调地域的问题
+    //     //继发请求  axios数据请求插件
+    //     asyncFn({
+    //         url:"/address",
+    //     })
+    //     .then(asyncFn2)
+    //     .then(res=>{
+    //         console.log(res)
+    //     })
+    // }
+
+    // {
+    //     function fn(url){
+    //         return new Promise((resolve,reject)=>{
+    //             let xhr = new XMLHttpRequest();
+    //             xhr.open("get",url,true)
+    //             xhr.send();
+    //             xhr.onreadystatechange = function(){
+    //                 if(xhr.readyState == 4 ){
+    //                     if(xhr.status ==200){
+    //                         resolve(xhr.responseText)
+    //                     }else{
+    //                         reject(xhr.status)
+    //                     }
+    //                 }  
+                    
+    //             }
+                
+    //         })
+    //     }
+    //     Promise.all([fn("/step1"),fn("/step2"),fn("/step3"),fn("/step4")])
+    //     .then(res=>{
+    //         // console.log(res);
+    //     })
+    // }
+    // {
+    //     let arr = [];
+    //     {
+    //         let xhr = new XMLHttpRequest();
+    //         xhr.open("get","/step1",true)
+    //         xhr.send();
+    //         xhr.onreadystatechange = function(){
+    //             if(xhr.readyState == 4 ){
+    //                 if(xhr.status ==200){
+    //                    arr[0] = xhr.responseText
+    //                    if(isOver()){
+    //                         console.log(arr)
+    //                     }
+    //                 }else{
+                       
+    //                 }
+    //             }  
+                
+    //         }
+    //     }
+    //     {
+    //         let xhr = new XMLHttpRequest();
+    //         xhr.open("get","/step2",true)
+    //         xhr.send();
+    //         xhr.onreadystatechange = function(){
+    //             if(xhr.readyState == 4 ){
+    //                 if(xhr.status ==200){
+    //                     arr[1] = xhr.responseText
+    //                     if(isOver()){
+    //                         console.log(arr)
+    //                     }
+    //                 }else{
+    //                     // reject(xhr.status)
+    //                 }
+    //             }  
+                
+    //         }
+    //     }
+    //     {
+    //         let xhr = new XMLHttpRequest();
+    //         xhr.open("get","/step3",true)
+    //         xhr.send();
+    //         xhr.onreadystatechange = function(){
+    //             if(xhr.readyState == 4 ){
+    //                 if(xhr.status ==200){
+    //                     arr[2] = xhr.responseText
+    //                     if(isOver()){
+    //                         console.log(arr)
+    //                     }
+    //                 }else{
+                        
+    //                 }
+    //             }  
+                
+    //         }
+    //     }
+    //     {
+    //         let xhr = new XMLHttpRequest();
+    //         xhr.open("get","/step4",true)
+    //         xhr.send();
+    //         xhr.onreadystatechange = function(){
+    //             if(xhr.readyState == 4 ){
+    //                 if(xhr.status ==200){
+    //                     arr[3] = xhr.responseText
+    //                     if(isOver()){
+    //                         console.log(arr)
+    //                     }
+    //                 }else{
+                       
+    //                 }
+    //             }  
+                
+    //         }
+    //     }
+    //     function isOver(){
+    //         let index = 0;
+    //         for(let i =0 ; i <arr.length ;i++){
+    //             console.log(arr[i]);
+    //             if(arr[i]){
+    //                 index++;
+    //             }
+    //         }
+    //         return index==4;
+    //     }
+    //     // let a = new Array(10);
+        
+    // }
+</script>
+</html>

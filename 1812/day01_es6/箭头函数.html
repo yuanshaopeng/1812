@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // function fn(){
+
+    // }
+    
+    //箭头函数语法
+    let fn1 = ()=>{
+        console.log("run")
+    }
+    //只有一个形参；
+    let fn2 = a =>{console.log(a)}
+    //若函数体只具备一句代码，且本行代码作为返回值被返回
+    let fn3 = a =>a+1;
+    // fn1()
+    // fn2(10);
+    // console.log(fn3(5))
+
+    // 1、箭头函数如果形参个数为0或大于1时   箭头函数的括号必须添加  
+    // 2、如果函数体为一句话，且作为返回值被返回，那么可以省略{}花括号
+    
+    // 箭头函数的特性
+    //  1、箭头函数没有this指向  this永远指向外层作用域对象
+    //  2、箭头函数没有arguments对象   使用扩展运算符替代arguments对象
+
+    //  箭头函数一般不作用于事件函数
+    //  箭头函数无法作为构造函数使用
+    //  箭头函数中的call&apply&bind会失效
+        //call & apply传参数形式不同
+        //&bind区别在于  call&apply会进行冒充调用   bind返回冒充后的函数  需手动调用方可运行
+
+    //  箭头函数常用于做回调函数
+    var name = "lee";
+    let obj = {
+        name:"zhang",
+        fn:function(){
+            console.log(this.name)
+            // setTimeout(function(){
+            //     alert(this.name)
+            // },1000)
+            // setTimeout(()=>{
+            //     alert(this.name)
+            // },1000)
+        }
+    }
+    // obj.fn(10,20,30)(40,50,60)
+    //
+    console.log(obj.fn.bind(this))
+
+
+</script>
+</html>

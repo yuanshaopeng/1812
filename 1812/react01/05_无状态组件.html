@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+</body>
+<script type="text/babel">
+    /**
+     * 无状态组件特点：
+     *  1、无状态组件不会被实例化，渲染性能更高一些
+     *  2、无状态组件一般只作用于某一个dom结构的封装，纯粹的渲染功能
+     *  3、无状态组件中没有state状态（当前组件的私有状态）
+     *  4、无状态组件中没有this指针，只具备一个props参数（只读属性的参数），不能被修改
+     *  5、react推荐使用无状态组件来完成页面渲染（能使用无状态组件的前提下，尽量使用无状态组件）
+     */
+
+    //无状态组件语法
+    //函数式声明
+    // function MyComp() {
+    //     return <h1>我是无状态组件</h1>
+    // }
+    //箭头式声明(推荐使用)
+
+    const MyComp = ()=>(<h1>我是无状态组件</h1>);
+    ReactDOM.render(<div>
+        {/** 函数式调用*/}
+        {MyComp()}
+        {/** 标签式调用 推荐使用*/}
+        <MyComp/>
+    </div>,document.querySelector("#app"))
+
+
+</script>
+</html>

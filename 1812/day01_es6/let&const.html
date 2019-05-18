@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // let const class import
+    //
+    // console.log(a);
+    // var a = 10;
+    // var a = 20;
+    // console.log(a);
+    // console.log(a);
+    // let a = 10;
+    // let a = 20;
+    // console.log(a);
+
+    // var a; var b;
+    if(true){
+        let a = 10;
+        console.log(a);
+    }else{
+        let b = 30;
+    }
+    // function fn(){
+    //    var a= 30;
+    // }
+    // fn()
+    // console.log(a);
+    //块级作用域
+    //取值同样遵循就近原则
+    {
+        let a = 10;
+        {
+            let a = 20;
+            console.log(a)
+            {
+                {
+
+                }
+            }
+        }
+    }
+    //对象
+    {
+        name:"lee"
+    }
+    // es5模拟块级作用域做法
+    (function(window){
+        var a = 10;
+    })(window);
+    /**
+    *   let & var区别
+    *  1、let声明的变量没有变量提升  var可以
+       2、同一作用域下，let声明的变量不能重复声明  var可以
+       3、var声明的变量挂载在window对象   let与const挂载global顶层对象
+       4、let会产生块级作用域  {}
+       5、let声明会产生暂时性死区  简称TDZ 
+       从let声明变量所在作用域开始一直到let 声明变量代码所在行，这段区域就是暂时性死区
+       6、typeof不再是安全操作符
+    */
+    // console.log(c)
+    // console.log(typeof c)
+    // let c = 30;
+
+
+    // if(true){
+    //     let a = 10;
+
+    // }
+   
+   
+</script>
+</html>

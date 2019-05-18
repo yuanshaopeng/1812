@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+<script type="text/babel">
+    // setState()
+
+    class Comp extends React.Component {
+        constructor(props){
+            super(props);
+            //可以将props数据注册到state里，方可修改
+            this.state = {
+                num:1,
+                title:this.props.title
+            }
+        }
+        render(){
+            return <div>
+                <p>{this.state.num}</p>
+                <button onClick={()=>{
+                    // console.log("run");
+                    // console.log(this);
+                    this.setState({
+                        num:this.state.num+1
+                    })
+                    console.log(this);
+                }}>state.num++按钮</button>
+            </div>
+        }
+    }
+    ReactDOM.render(<Comp />,document.querySelector("#app"))
+</script>
+</html>

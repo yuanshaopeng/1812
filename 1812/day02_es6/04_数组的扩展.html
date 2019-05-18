@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+<script>
+    {
+        // 可以起到遍历作用的方法
+        // forEach map filter find findIndex every some
+    }
+
+    {
+        //map映射数组
+        // /**
+        // *   map语法规则
+        //     map方法中，接收一个回调函数，回调函数接收两个参数，分别是项和下标；
+        //     回调函数的返回值会作为映射的新数组中的每一项push在新数组中
+        // */
+        let arr = [1,2,3,4,5];
+        let arr2 = arr.map((item,index)=>{
+           
+            return ""+item;
+        })
+        console.log(arr2);
+    }
+
+    {
+        //filter过滤数组
+        /**
+        * filter作用：过滤数组中的元素
+        * 语法规则，回调函数中return true的项会得到保留，return false项会被过滤；
+        * 返回新数组，对原数组无影响
+        */
+        let arr = [1,2,3,4,5];
+        let arr2 = arr.filter((item,index)=>{
+            return item<=3;
+        })
+        console.log(arr2);
+    }
+
+    {
+        //every
+        //返回bol值
+        //回调函数必须具备return语句，若在遍历时，每一次回调函数都返回true，则every方法返回true；
+        //任意一次回调函数返回false，则every方法返回false
+        //每一项都满足条件时的判断
+        let arr = [1,2,3];
+        let bol = arr.every((item,index)=>{
+            return item>2;
+        })
+        console.log(bol)
+    }
+    
+    {
+        //some 
+        //返回bol值
+        let arr = [1,2,3];
+        let bol = arr.some((item,index)=>{
+            return item>2;
+        })
+        console.log(bol)
+        //回调函数必须具备return语句，若在遍历时，每一次回调函数都返回false，则every方法返回false；
+        //任意一次回调函数返回true，则every方法返回true
+        
+        let car = [{
+            id:"1",
+            name:"遥控车",
+            price:100,
+            count:1
+        },{
+            id:"2",
+            name:"纸尿裤",
+            price:200,
+            count:2
+        }]
+        let currentIndex = null;
+        let bol1 = car.some((item,index)=>{
+            if(item.id === "1"){
+                currentIndex = index;
+            }
+            return item.id === "1"
+        })
+        // if(bol){
+
+        // }
+    }
+
+    {
+        // find/findexIndex
+        // 返回回调函数中第一次return true的项/下标
+        let arr = [1,2,3,4];
+        let item = arr.find((item,index)=>{
+            return item>=3
+        })
+        console.log(item);
+    }
+
+    {
+        //includes;//判断某一项是否在数组中存在
+        let arr = [1,2,3];
+        console.log(arr.includes(3))//存在返回true  不存在返回false
+        //相较于indexOf  返回值语义更直接
+    }
+
+    {
+        //fill 填充数组
+        //fill(item,start,end);
+        // item 用来填充的项
+        // start 开始填充的位置下标
+        // end  结束填充的位置下标（不包含结束项）
+        let arr = new Array(8);
+        arr.fill(0,0,5);
+        console.log(arr);
+    }
+
+    {
+        //copyWithin();用数组的内部项进行填充
+        //copyWithin(target,start,end);
+        //target 替换原数组的项的下标；
+        //start 截取用来替换项的开始下标
+        //end  截取用来替换项的结束下标（不包含结束项)
+        let arr = [1,2,3,4,5,6,7];
+        arr.copyWithin(2,3,5)
+        console.log(arr);
+    }
+
+    {
+        // Array.of  Array.from
+        //Array.of 将一组值转换为数组
+        let arr = Array.of(1,2,3,4,5,6);
+        console.log(arr);
+    }
+
+    {
+        //Array.from将伪数组转为真正的数组
+        let lis = document.querySelectorAll("li");
+        //判断数组是数组
+        // Array.isArray(lis);
+        // lis instanceof Array
+        // lis.constructor === Array
+        let arr = Array.from(lis);
+        console.log(arr instanceof Array);
+        //es5做法
+        // 利用call和apply冒充调用
+        let arr1 = [];
+        console.log(arr1.slice.call(lis,0))
+        console.log([...lis]);
+    }
+
+    {
+        // flat(num) 拉平数组 
+        // num拉平层数
+        let arr = [1,2,[3,4,[5]]]
+        console.log(arr.flat(2))
+    }
+
+    {
+        // 扩展运算符 ...
+        let arr = [1,2,3,4];
+        console.log(...arr);
+        let [...c] = arr;
+        console.log(c)
+        let fn = (...arg)=>{
+            console.log(arg);
+        }
+        fn(1,2,3,4,5,6,7,8)
+    }
+</script>
+</html>

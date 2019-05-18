@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        
+    </div>
+</body>
+<script type="text/babel">
+    let app = document.querySelector("#app")
+
+    class RadioIpt extends React.Component {
+        constructor(props){
+            super(props)
+            this.state={
+                sex:"boy"
+            }
+        }
+        handleChange(ev){
+            console.log(ev.target)
+            //异步更改
+            this.setState({
+                sex:ev.target.value
+            },()=>{
+                console.log(this.state.sex);
+            })
+            
+        }
+        render(){
+            return <div>
+                    <label htmlFor="girl">女</label><input type="radio" defaultChecked={this.state.sex=="girl"} onChange={this.handleChange.bind(this)} value="girl" id="girl" name="sex" /><br/>
+                    <label htmlFor="boy">男</label><input type="radio" defaultChecked={this.state.sex=="boy"} onChange={this.handleChange.bind(this)} value="boy" id="boy" name="sex" /><br/>
+                    <button onClick={()=>{
+                        console.log(this.state.sex);
+                    }}>按钮</button>
+            </div>
+        }
+    }
+    ReactDOM.render(<RadioIpt />,app)
+</script>
+</html>

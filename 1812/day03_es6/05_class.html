@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    
+    //class声明类  
+    /**
+     * 1、不允许变量提升
+     * 2、不允许重复声明
+     * 3、死区
+     * 4、仅用于声明类
+     */
+    //在es6中开始出现class类；
+    class Person {
+        //这里的花括号是其块级作用域
+        constructor(name){
+            //等同于es5中的构造函数
+            //实例自身的属性方法
+            this.name = name
+        }
+        //与constructor函数同级的函数都是类原型对象上的方法
+        say(){
+            alert(this.say())
+        }
+    }
+    // Person.prototype.say = function(){
+    //     alert(this.name);
+    // }
+    let person = new Person("zhang");
+    console.log(person)
+
+    // function Person(){
+    //     this.name="lee"
+    // }
+        
+</script>
+</html>

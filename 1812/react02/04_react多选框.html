@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+       
+    </div>
+</body>
+<script type="text/babel">
+    let app = document.querySelector("#app")
+    class CheckBoxIpt extends React.Component {
+        constructor(){
+            super()
+            this.state = {
+                chooseArr :["4","5","6"]
+            }
+        }
+        handleChange(ev){
+            let el = ev.target;
+            let val = el.value;
+            let index = this.state.chooseArr.indexOf(val);
+            index==-1?this.state.chooseArr.push(val):this.state.chooseArr.splice(index,1);
+            this.setState({
+                chooseArr:this.state.chooseArr
+            })
+        }
+        handleAllChoose(){
+            this.setState({
+                chooseArr:["1","2","3","4","5","6"]
+            },()=>{
+               
+            })
+
+        }
+        render(){
+            return ( <div>
+            <input type="checkbox" value="1" checked={this.state.chooseArr.includes("1")} onChange={this.handleChange.bind(this)} />1 <br/>
+            <input type="checkbox" value="2" checked={this.state.chooseArr.includes("2")} onChange={this.handleChange.bind(this)} />2 <br/>
+            <input type="checkbox" value="3" checked={this.state.chooseArr.includes("3")} onChange={this.handleChange.bind(this)} />3 <br/>
+            <input type="checkbox" value="4" checked={this.state.chooseArr.includes("4")} onChange={this.handleChange.bind(this)} />4 <br/>
+            <input type="checkbox" value="5" checked={this.state.chooseArr.includes("5")} onChange={this.handleChange.bind(this)} />5 <br/>
+            <input type="checkbox" value="6" checked={this.state.chooseArr.includes("6")} onChange={this.handleChange.bind(this)} />6 <br/>
+            <button onClick={()=>{
+                console.log(this.state.chooseArr)
+            }}>提交</button>
+            <button onClick={this.handleAllChoose.bind(this)}>全选</button>
+            <button onClick={()=>{
+                let all = ["1","2","3","4","5","6"];
+                this.setState({
+                    chooseArr : all.filter((item,index)=>{
+                        return !this.state.chooseArr.includes(item)
+                    })
+                })
+            }}>反选</button>
+            <button onClick={()=>{
+                this.setState({
+                    chooseArr :[]
+                })
+            }}>全不选</button>
+        </div>)
+        }
+    }
+    ReactDOM.render(<CheckBoxIpt/>,app)
+
+</script>
+</html>

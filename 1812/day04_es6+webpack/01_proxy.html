@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text"><span></span>
+    <button>按钮</button>
+</body>
+<script>
+    {
+        // proxy:代理；
+        // 对对象进行代理操作，由语法层对目标对象进行升级
+        // defineProperty() 对目标对象进行监听
+        // proxy 对代理对象进行监听 proxy应用于语法层的监听
+    }
+    {
+        //get 拦截  拦截用户获取目标对象属性的操作
+        //将常用方法进行封装
+        let obj = {name:"lee"};
+        let proxy = new Proxy(obj,{
+            //通过代理对象操作属性时，get方法会被触发
+            get(target,key,proxyObj){
+                console.log(target,key,proxyObj);
+                return target[key];
+            }
+        })
+        // console.log(obj.name)
+        // console.log(proxy.name);
+        // console.log(proxy.age);
+    }
+    {
+        function Fn(){
+            this.name = "lee"
+        }
+        Fn.prototype.age=18;
+        let fn = new Fn()
+        console.log(fn.name,fn.age)
+        // hasOwnProperty() 判断目标对象自身是否具备某属性
+        // console.log(fn.hasOwnProperty("age"))
+        // in  判断目标对象是否可以访问某属性；属性可以在自身也可以在原型
+        // console.log("work" in fn)
+        // 判断目标属性是否在原型对象上
+        // console.log(!fn.hasOwnProperty("age")&& "age" in fn)
+        //get应用  在语法层更改获取目标属性语法
+        let obj = {name:"lee",bol:false};
+        // in
+        // let proxy = new Proxy(obj,{
+        //     //通过代理对象操作属性时，get方法会被触发
+        //     get(target,key,proxyObj){
+        //         if(target.hasOwnProperty(key)){
+        //             return target[key]
+        //         }else{
+        //             throw new Error(`${key} is not defined`);
+        //         }
+        //     }
+        // })
+        // console.log(proxy.age);
+        // console.log(proxy.age);
+        // `${变量名} xxx`
+    }
+    {
+        //隐藏属性的过滤
+        let obj = {name:"lee",_price:20000}
+        let proxy = new Proxy(obj,{
+            get(target,key){
+                if(key.charAt(0)=="_"){
+                    return undefined;
+                }else{
+                    return target[key];
+                }
+            }
+        })
+        console.log(proxy._price)
+    }
+
+    {
+        //代理dom操作
+        let proxy = new Proxy({},{
+            get(target,key){
+                return function(attr,style,content){
+                    let dom = document.createElement(key);
+                    for(let k in attr){
+                        dom.setAttribute(k,attr[k]);
+                    }
+                    for(let k in style){
+                        dom.style[k] = style[k];
+                    }
+                    dom.innerHTML = content;
+                    document.body.appendChild(dom);
+                }
+            }
+        })
+        proxy.div({
+            class:"div1",
+            id:"box",
+            diy:"diy"
+        },{
+            background:"red",
+            fontSize:"100px",
+            width:"200px",
+            height:"500px"
+        },`<p>哈哈哈</p>`)
+    }
+    {
+        let proxy = new Proxy({},{
+            get(target,key){
+                return function(){
+                    let date = new Date();
+                    return date[key]()+1;
+                }
+            }
+        })
+        console.log(proxy.getMonth())
+    }
+
+    {
+        //set拦截  设置对象属性的操作
+        let obj = {
+            name:"lee",
+            age:18
+        }
+        let proxy = new Proxy(obj,{
+            get(target,key){
+                return target[key];
+            },
+            set(target,key,value,proxyObj){
+                console.log(target,key,value);
+                target[key] = value;
+            }
+        })
+        // console.log()
+        // obj.name="zhang";
+        proxy.name = "zhang";
+        proxy.work = "程序员";
+        console.log(proxy.work,obj);
+    }
+
+    {
+        //用作双向数据绑定（vue3.0 双向数据绑定原理）/（2.0使用的是defineProperty）
+        // 由数据驱动dom更新
+        let obj = {
+            value:""
+        }
+        let ipt = document.querySelector("input");
+        let span = document.querySelector("span");
+        let btn = document.querySelector("button");
+        let proxy = new Proxy(obj,{
+            get(target,key){
+                return target[key];
+            },
+            set(target,key,value){
+                target[key]=value;                
+                ipt.value = value;
+                span.innerHTML = value;
+            }
+        })
+        ipt.oninput = function(){
+            proxy.value = this.value;
+        }
+        btn.onclick = function(){
+            proxy.value = "hahaha"
+        }
+    }
+
+    {
+        //deleteProperty 删除对象目标属性操作
+        let obj = {name:"lee"};
+        // delete obj.name;
+        // delete obj.age;
+        // console.log(obj);
+        let proxy = new Proxy(obj,{
+            deleteProperty(target,key,proxyObj){
+                if(target.hasOwnProperty(key)){
+                    delete target[key]
+                }else{
+                    throw new Error(`${key} is not defined`)
+                }
+            }
+        })
+        // delete proxy["age"];
+        console.log(proxy);
+    }
+    {
+        // has拦截    拦截in操作符
+        let obj = {name:"lee"};
+        let proxy = new Proxy(obj,{
+            has(target,key,proxyObj){
+                console.log("run");
+                if(key.charAt(0)=="_"){
+                    return false
+                }else{
+                    return key in target;
+                }
+            }
+        })
+        console.log("name" in proxy);
+
+    }
+    {
+        // apply拦截   拦截函数调用，以及call&apply的调用
+        let obj = {
+            color:"red"
+        }
+        var color = "green";
+        let fn = function(){
+            console.log(this.color);
+        }
+        let proxy = new Proxy(fn,{
+            apply(target,context,arg){
+                //target:目标函数
+                //context:上下文对象  this指针
+                //arg:arguments对象  调用函数时传递的实参
+                console.log(target,context,arg);
+                return target.apply(context,arg);
+            }
+        })
+        proxy.apply(obj,[1,2,3,4]);
+    }
+
+    {
+        //contruct  拦截函数的new操作
+        function Person(){
+            this.name = "lee"
+        }
+        let proxy = new Proxy(Person,{
+            construct(target,arg){
+                console.log("run")
+                //必须return 对象
+                return new target(arg);
+            }
+        })
+        console.log(new proxy());
+    }
+
+    //13种拦截
+</script>
+</html>

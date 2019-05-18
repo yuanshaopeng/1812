@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <script src="./lib/axios.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+</body>
+<script type="text/babel">
+    let app = document.querySelector("#app")
+    class Comp extends React.Component {
+        constructor(){
+            super();
+            this.state = {
+                msg:[]
+            };
+        }
+        render(){
+            return <ul>
+                    {this.state.msg.map((item,index)=>{
+                        return <li key={index}>
+                                <h2>{item.title}</h2>
+                                <p>{item.content}</p>    
+                        </li>
+                    })}
+                </ul>
+        }
+        componentWillMount(){
+            axios({
+                method:"get",
+                url:"http://localhost:8080/list",
+            })
+            .then(res=>{
+                this.setState({
+                    msg:res.data
+                })
+            })
+        }
+    }
+
+    ReactDOM.render(<Comp/>,app);
+</script>
+</html>

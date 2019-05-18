@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function pro(time){
+        return new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                resolve("ok")
+            },time)
+        })
+    }
+    {
+        // async函数 将异步转为同步
+        async function fn(){
+            console.log(1);
+            await pro(2000)
+            console.log(2);
+            await pro(3000)
+            console.log(3);
+            return "over"
+        }
+        // let obj = {
+        //     async fn(){
+
+        //     }
+        // }
+        // obj.fn()
+        // console.log(fn())
+        // fn().then(res=>{
+        //     console.log(res);
+        // })
+        /**
+         *  async函数的运行规则
+         *  async函数就是generator函数+自动执行器
+         *  async函数在调用时会执行函数体的代码块
+         *  遇到await时，会等待await表达式后的异步操作执行完毕后，才会执行下一个await表达式
+         *  async函数的返回值为promise对象， return的结果会被强制转换为promise对象
+         */
+    }
+
+    {
+        // await的返回值 await表达式后的异步操作结果
+        async function fn(){
+            let step1 = await pro(2000)
+            console.log(step1);
+            let step2 = await pro(3000)
+            console.log(step2);
+            return [step1,step2]
+        }
+        fn().then(res=>{
+            console.log(res);
+        })
+    }
+
+    {
+        // 并发应用 
+        async function fn(){
+            let p1 = pro(2000)
+            let p2 = pro(1000)
+            return [p1,p2];
+        }
+        fn().then(res=>{
+            console.log(res);
+        })
+    }
+
+
+</script>
+</html>

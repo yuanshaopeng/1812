@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+</body>
+<script type="text/babel">
+    class Comp extends React.Component {
+        constructor(props){
+            super();
+            this.state={
+                num:1,
+                count:2
+            }
+        }
+        handleClick(){
+            this.setState({
+                num:3
+            })
+        }
+        render(){
+            return <div>
+                    <p>组件中的props：{this.props.data}</p>
+                    <p>组件中的state：{this.state.num}</p>
+                    <button onClick={this.handleClick.bind(this)}>num+1</button>
+                </div>
+        }
+        componentWillReceiveProps(nextProps){
+            //唯一一个可以使用setState方法的监听状态修改的生命周期钩子函数
+            this.setState({
+
+            })
+            console.log("componetWillReceiveProps",nextProps);
+            //监听props的改变
+        }
+        shouldComponentUpdate(nextProps,nextState){
+            console.log("shouldComonentUpdate",nextProps,nextState,this.state);
+            let bol = true;
+            for(let k in this.state){
+                if(this.state[k]==nextState[k]){
+                    continue;
+                }else{
+                    bol = false;
+                }
+            }
+            //守卫
+            return !bol;
+        }
+        componentWillUpdate(nextProps,nextState){
+            console.log("componentWillUpdate",nextProps,nextState)
+            //更新前钩子
+        }
+        componentDidUpdate(nextProps,prevState){
+            console.log("componentDidUpdate",nextProps,prevState)
+            //更新后
+        }
+        componentWillMount(){
+
+        }
+        componentDidMount(){
+
+        }
+        componentWillUnmount(){
+            
+        }
+    }
+    let str = 1;
+    // setInterval(() => {
+    //     str+=1;
+        ReactDOM.render(<Comp data={str}/>,document.querySelector("#app"));
+    //     if(str>=3){
+    //         clearInterval(1);
+    //     }
+    // }, 1000);
+</script>
+</html>

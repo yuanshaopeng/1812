@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+</body>
+<script type="text/babel">
+    let app = document.querySelector("#app")
+    //直接绑定
+    class Comp1 extends React.Component {
+        constructor(props){
+            super()
+            this.state = {
+                num :1
+            }
+        }
+        render(){
+            return <div>
+                <p>{this.state.num}</p>
+                <button onClick={(ev)=>{
+                    //ev.target获取目标元素进行操作
+                    // console.log(ev.target);
+                    this.setState({
+                        num:this.state.num+1
+                    })
+                }} >+1</button>
+            </div>
+        }
+    }
+
+    //手动绑定 推荐使用
+    class Comp2 extends React.Component {
+        constructor(props){
+            super()
+            this.state = {
+                num :1
+            }
+        }
+        handleClick(a,b,c,ev){
+            //最后一个形参为事件对象
+            console.log(a,b,c,ev)
+            console.log(111)
+            console.log(this);
+            this.setState({
+                num:this.state.num+1
+            })
+        }
+        render(){
+            return <div>
+                <p>{this.state.num}</p>
+                <button onClick={this.handleClick.bind(this,1,2,3)}>+1</button>
+            </div>
+        }
+    }
+
+    // let obj = {}
+    // obj.__proto__.name="xxx";
+    // obj.name="yyy";
+    // obj.name
+
+
+    //手动绑定
+    class Comp3 extends React.Component {
+        constructor(props){
+            super()
+            this.state = {
+                num :1
+            }
+            //将原型上的函数添加到组件实例自身
+            this.handleClick = this.handleClick.bind(this,1,2,3);
+        }
+        handleClick(a,b,c,ev){
+            console.log(a,b,c,ev)
+            console.log(this);
+            this.setState({
+                num:this.state.num+1
+            })
+        }
+        render(){
+            return <div>
+                <p>{this.state.num}</p>
+                <button onClick={this.handleClick}>+1</button>
+            </div>
+        }
+    }
+
+    //箭头函数
+    class Comp4 extends React.Component {
+        constructor(props){
+            super()
+            this.state = {
+                num :1
+            }
+        }
+        handleClick=(ev)=>{
+            console.log(111)
+            console.log(this);
+            this.setState({
+                num:this.state.num+1
+            })
+        }
+        render(){
+            return <div>
+                <p>{this.state.num}</p>
+                <button onClick={this.handleClick}>+1</button>
+            </div>
+        }
+    }
+
+    ReactDOM.render(<Comp3 />,app);
+</script>
+</html>

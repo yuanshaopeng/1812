@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    {
+        //数组的解构语法
+        //等号左侧为声明项，等号右侧为赋值项；赋值规则为下标对应
+        let arr = [1,2,3,4];
+        let [a,b,c,d] = arr;
+        console.log(a,b,c,d)
+    }
+
+    {
+        //不完全解构
+        let arr = [1,2];
+        let [a,b,c] = arr;
+        console.log(a,b,c);//1,2,undefined
+    }
+
+    {
+        //空值解构
+        let arr = [1,2,3];
+        let [a,,c] = arr;
+        console.log(a,c)//1,3
+    }
+
+    {
+        //失败解构
+        //当赋值项严格等于undefind时，会解构失败，声明项为undefined
+        let arr = [1,2,undefined,null,false];
+        let [a,b,c,d,e] = arr;
+        console.log(a,b,c,d,e);//1,2,undefined,null,false
+    }
+
+    {
+        //默认值的解构
+        let arr = [1,2,undefined,null,false];
+        let [a,b,c=3,d,e] = arr;
+        console.log(a,b,c,d,e);//1,2,3,null,false
+    }
+
+    {
+        //默认值设置 惰性赋值
+        //只有在解构失败时，才会运行默认值表达式；
+        function fn(){
+            alert("run")
+            return 1;
+        }
+        
+        let arr = [1,2,3,null,false];
+        let [a,b,c=fn(),d,e] = arr;
+        console.log(a,b,c,d,e);
+    }
+
+    {
+        //多维数组的解构
+        let arr = [1,2,[3,4,[5]]];
+        let [a,b,c] = arr;
+        console.log(a,b,c);//1,2,[3,4,[5]]
+    }
+
+    {
+        //交换值
+        let a = 1;
+        let b = 2;
+        [a,b]=[b,a];
+        console.log(a,b);//2,1
+    }
+
+    {
+        //对ajax数据请求后进行数据解构处理
+        let state = ["失败","成功","成功且无返回值","获取成功"];
+
+        // ajax取值
+        let res = {
+            state:1,
+            code:"xxx",
+            data:{
+                arr:[]
+            }
+        }
+        if(res.state ==0){
+            alert(state[res.state]);
+        }
+    }
+</script>
+</html>
